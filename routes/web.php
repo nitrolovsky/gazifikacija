@@ -83,7 +83,7 @@ Route::get("/lead", function() {
     });
 
     return Redirect::to("/thanks");
-})
+});
 
 Route::get('/thanks', function () {
     return view('thanks');
