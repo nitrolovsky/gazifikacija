@@ -217,7 +217,7 @@
                                             <label for="formGroupExampleInput">
                                                 Длина от основной магистрали до места подключения в метрах
                                             </label>
-                                            <input type="number" class="form-control btn-circle" id="formGroupExampleInput" name="dlina" placeholder="1" min="0">
+                                            <input type="number" class="form-control btn-circle" id="formGroupExampleInput" name="dlina" placeholder="" min="0">
                                         </div>
                                     </div>
                                 </div>

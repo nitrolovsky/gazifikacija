@@ -11,78 +11,81 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/lead", function() {
-    $lead = new Lead;
-    $leadLastId = $lead->create([
-        "name" => Request::get("name"),
-        "email" => Request::get("email"),
-        "phone" => Request::get("phone"),
-        "source" => Request::get("source"),
-        "calc" => Request::get("calc"),
-        "nar" => Request::get("nar"),
-        "vn" => Request::get("vn"),
-        "kol" => Request::get("kol"),
-        "davl" => Request::get("davl"),
-        "dlina" => Request::get("dlina"),
-        "dym" => Request::get("dym"),
-        "kotel" => Request::get("kotel"),
-        "ob" => Request::get("ob"),
-        "op1" => Request::get("op1"),
-        "op2" => Request::get("op2"),
-        "op3" => Request::get("op3"),
-        "op4" => Request::get("op4"),
-        "op5" => Request::get("op5"),
-        "op6" => Request::get("op6"),
-        "op7" => Request::get("op7"),
-        "op8" => Request::get("op8"),
-        "op9" => Request::get("op9"),
-        "op10" => Request::get("op10")
-    ])->id;
+Route::post("/lead", function(Request $request) {
+
+    $lead_last_id = DB::table("leads")->insertGetId([
+        "name" => $request->input("name"),
+        "email" => $request->input("email"),
+        "phone" => $request->input("phone"),
+        "source" => $request->server("HTTP_REFERER"),
+        "calc" => $request->input("calc"),
+        "nar" => $request->input("nar"),
+        "vn" => $request->input("vn"),
+        "kol" => $request->input("kol"),
+        "davl" => $request->input("davl"),
+        "dlina" => $request->input("dlina"),
+        "dym" => $request->input("dym"),
+        "kotel" => $request->input("kotel"),
+        "ob" => $request->input("ob"),
+        "op1" => $request->input("op1"),
+        "op2" => $request->input("op2"),
+        "op3" => $request->input("op3"),
+        "op4" => $request->input("op4"),
+        "op5" => $request->input("op5"),
+        "op6" => $request->input("op6"),
+        "op7" => $request->input("op7"),
+        "op8" => $request->input("op8"),
+        "op9" => $request->input("op9"),
+        "op10" => $request->input("op10")
+    ]);
 
     $email = array(
-        "name" => Request::get("name"),
-        "email" => Request::get("email"),
-        "phone" => Request::get("phone"),
-        "source" => Request::get("source"),
-        "calc" => Request::get("calc"),
-        "nar" => Request::get("nar"),
-        "vn" => Request::get("vn"),
-        "kol" => Request::get("kol"),
-        "davl" => Request::get("davl"),
-        "dlina" => Request::get("dlina"),
-        "dym" => Request::get("dym"),
-        "kotel" => Request::get("kotel"),
-        "ob" => Request::get("ob"),
-        "op1" => Request::get("op1"),
-        "op2" => Request::get("op2"),
-        "op3" => Request::get("op3"),
-        "op4" => Request::get("op4"),
-        "op5" => Request::get("op5"),
-        "op6" => Request::get("op6"),
-        "op7" => Request::get("op7"),
-        "op8" => Request::get("op8"),
-        "op9" => Request::get("op9"),
-        "op10" => Request::get("op10"),
-        "lead_id" => $leadLastId
+        "name" => $request->input("name"),
+        "email" => $request->input("email"),
+        "phone" => $request->input("phone"),
+        "source" => $request->server("HTTP_REFERER"),
+        "calc" => $request->input("calc"),
+        "nar" => $request->input("nar"),
+        "vn" => $request->input("vn"),
+        "kol" => $request->input("kol"),
+        "davl" => $request->input("davl"),
+        "dlina" => $request->input("dlina"),
+        "dym" => $request->input("dym"),
+        "kotel" => $request->input("kotel"),
+        "ob" => $request->input("ob"),
+        "op1" => $request->input("op1"),
+        "op2" => $request->input("op2"),
+        "op3" => $request->input("op3"),
+        "op4" => $request->input("op4"),
+        "op5" => $request->input("op5"),
+        "op6" => $request->input("op6"),
+        "op7" => $request->input("op7"),
+        "op8" => $request->input("op8"),
+        "op9" => $request->input("op9"),
+        "op10" => $request->input("op10"),
+        "lead_id" => $lead_last_id
     );
 
-    Mail::send("email.lead", $email, function ($message) {
+    Mail::send("email", $email, function ($message) {
         $message->from("genlid.proposals@gmail.com", "genlid.proposals");
         $message->to("nitrolovsky@gmail.com");
         $message->subject("Заявка № " . date ("Y.m.d H:m:s"));
     });
 
-    Mail::send("email.lead", $email, function ($message) {
+/*
+    Mail::send("email", $email, function ($message) {
         $message->from("genlid.proposals@gmail.com", "genlid.proposals");
         $message->to("domshowaltair@gmail.com");
         $message->subject("Заявка № " . date ("Y.m.d H:m:s"));
     });
-
-    return Redirect::to("/thanks");
+*/
+    return redirect("/thanks");
 });
 
 Route::get('/thanks', function () {
