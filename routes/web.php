@@ -85,6 +85,6 @@ Route::get("/lead", function() {
     return Redirect::to("/thanks");
 })
 
-Route::get('/', function () {
+Route::get('/thanks', function () {
     return view('thanks');
 });
