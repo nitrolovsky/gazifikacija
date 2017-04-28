@@ -74,12 +74,6 @@ Route::post("/lead", function(Request $request) {
 
     Mail::send("email", $email, function ($message) {
         $message->from("genlid.proposals@gmail.com", "genlid.proposals");
-        $message->to("nitrolovsky@gmail.com");
-        $message->subject("Заявка № " . date ("Y.m.d H:m:s"));
-    });
-
-    Mail::send("email", $email, function ($message) {
-        $message->from("genlid.proposals@gmail.com", "genlid.proposals");
         $message->to("domshowaltair@gmail.com");
         $message->subject("Заявка № " . date ("Y.m.d H:m:s"));
     });
